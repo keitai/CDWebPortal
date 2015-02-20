@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>React Test</title>
+		<script src="react-with-addons.js"></script>
+		<script src="JSXTransformer.js"></script>
+		<script src="factotum.js"></script>
+		
+		<meta name="viewport" content="width=device-width, height=device-height, user-scalable=no" />
+		
+		<link rel="stylesheet" type="text/css" href="style.css" />
+	</head>
+	<body>
+		<script type="text/jsx">
+		var FormLayout = React.createClass({
+			submit:function(evt){
+				evt.preventDefault();
+			},
+			render:function(){
+				return <div style={{border:'2px solid cyan'}}>
+					<form onSubmit={this.submit}>
+					{
+						React.Children.map(
+							this.props.children,
+							function(child){
+								console.log(child.props.displayName);
+								return child;
+							}
+						)
+					}
+					</form>
+				</div>
+			}
+		});
+		
+		var WebPortal = React.createClass({
+			render:function(){
+				return (
+					<div>
+						Web Portal!
+					</div>
+				);
+			}
+		});
+		
+		// fc.ajax({url:"login.js"}).then(function(response){
+		// 	var UI={};
+		// 	new Function("UI",response.text)(UI);
+		// 	React.render(<UI.Main />, document.body);
+		// });
+		
+		React.render(<WebPortal />, document.body);
+		</script>
+	</body>
+</html>
